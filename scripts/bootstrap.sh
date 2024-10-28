@@ -5,12 +5,11 @@ sudo yum install -y \
   iptables-services
 
 sudo systemctl enable amazon-ssm-agent
-sudo systemctl start amazon-ssm-agent
+sudo systemctl start  amazon-ssm-agent
 sudo systemctl enable iptables
-sudo systemctl start iptables
+sudo systemctl start  iptables
 
 primary_network_interface=$(sudo /usr/bin/netstat -i | egrep -v 'Kernel|Iface|lo' | awk '{print $1}')
-sudo iptables -F
 sudo /sbin/iptables -t nat -A POSTROUTING -o ${primary_network_interface} -j MASQUERADE
 sudo /sbin/iptables -F FORWARD
 sudo service iptables save
